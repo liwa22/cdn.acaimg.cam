@@ -15,7 +15,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
 <script src="https://countyrecyclefailed.com/90/81/e6/9081e66255e7fe03d6123813a5fb71bd.js"></script>
 
 <title>CDN.ACEIMG.CAM</title>
@@ -97,9 +96,10 @@ transform:scale(1.05);
 transition:.3s;
 }
 </style>
+</head>
+<body>
 
 <header class="sticky top-0 z-50 px-6 py-4 bg-zinc-900 border-b border-zinc-800">
-
 <div class="max-w-7xl mx-auto flex justify-between items-center">
 
 <img src="https://cdn.aceimg.com/ac0bfdd48.webp" width="120" height="40" alt="Logo">
@@ -122,7 +122,6 @@ transition:.3s;
 <main class="flex-grow py-8 px-4">
 
 <div id="video-container" class="relative">
-
 <div class="loading-spinner" id="loading-spinner"></div>
 
 <video
@@ -132,7 +131,6 @@ preload="auto"
 controlsList="nodownload noremoteplayback"
 disablePictureInPicture>
 </video>
-
 </div>
 
 <div id="error-message" class="hidden mt-6 p-4 bg-red-900/20 border border-red-500/50 text-red-400 rounded-xl text-center">
@@ -140,29 +138,23 @@ disablePictureInPicture>
 </div>
 
 <section class="mt-8">
-
 <h2 id="video-title" class="text-2xl font-bold mb-4">
 Memuat Judul...
 </h2>
-
 <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
 <p id="video-description" class="text-zinc-400">
 Memuat deskripsi...
 </p>
 </div>
-
 </section>
 
 <!-- REKOMENDASI -->
 <section class="mt-12">
-
 <h3 class="text-xl font-bold mb-6">
 Rekomendasi Video
 </h3>
-
 <div id="recommendation-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
 </div>
-
 </section>
 
 </main>
@@ -196,165 +188,125 @@ const errorText = document.getElementById('error-text');
 const downloadButton = document.getElementById('download-button');
 const recommendationList = document.getElementById('recommendation-list');
 
-
 // =====================================
-// DIRECT LINK SETTINGS
+// DIRECT LINK SETTINGS (ROTASI IKLAN)
 // =====================================
 
-const DIRECT_LINK = "https://www.effectivecpmnetwork.com/m0hbrxmcaq?key=99a3b2f650b7dbfffbce927315d8b493";
+// Masukkan semua direct link kamu di sini
+const DIRECT_LINKS = [
+    "https://www.effectivecpmnetwork.com/m0hbrxmcaq?key=99a3b2f650b7dbfffbce927315d8b493", // Adsterra
+    "https://link-monetag-kamu.com/xxxxxx", // Ganti dengan direct link Monetag
+    "https://omg10.com/4/11072185"  // Ganti dengan network lain jika ada
+];
+
+// Ambil urutan (index) terakhir dari localStorage, atau mulai dari 0
+let currentAdIndex = parseInt(localStorage.getItem('adIndex')) || 0;
+
+// Fungsi untuk mengambil link iklan dan memperbarui urutan
+function getNextDirectLink() {
+    const linkToUse = DIRECT_LINKS[currentAdIndex];
+    currentAdIndex = (currentAdIndex + 1) % DIRECT_LINKS.length;
+    localStorage.setItem('adIndex', currentAdIndex);
+    return linkToUse;
+}
 
 let clicked = false;
 let redirected = false;
 
-
 // =====================================
 
 if(!videoId){
-
-errorText.textContent='ID video tidak ditemukan.';
-errorMessage.classList.remove('hidden');
-
-return;
-
+    errorText.textContent='ID video tidak ditemukan.';
+    errorMessage.classList.remove('hidden');
+    return;
 }
 
 loadingSpinner.style.display='block';
 
 try{
+    const response = await axios.get(
+    'https://raw.githubusercontent.com/liwa22/json/refs/heads/main/Video.json',
+    {timeout:10000}
+    );
 
-const response = await axios.get(
-'https://raw.githubusercontent.com/liwa22/json/refs/heads/main/Video.json',
-{timeout:10000}
-);
+    const videos = response.data;
+    const foundVideo = videos.find(v=>v.id===videoId);
 
-const videos = response.data;
+    if(foundVideo){
+        currentVideoUrl = foundVideo.Url;
+        videoPlayer.src = foundVideo.Url + "#t=1.0";
+        videoTitle.textContent = foundVideo.Judul || "Untitled Video";
+        videoDescription.textContent = foundVideo.Description || "Tidak ada deskripsi.";
+        videoPlayer.load();
 
-const foundVideo = videos.find(v=>v.id===videoId);
+        // =====================================
+        // DIRECT LINK KLIK PERTAMA
+        // =====================================
+        videoPlayer.addEventListener("click", () => {
+            if (!clicked) {
+                clicked = true;
+                window.location.href = getNextDirectLink();
+            }
+        }, { once: true });
 
-if(foundVideo){
+        // =====================================
+        // DIRECT LINK SAAT 30 DETIK
+        // =====================================
+        videoPlayer.addEventListener("timeupdate", () => {
+            if (!redirected && videoPlayer.currentTime >= 30){
+                redirected = true;
+                window.location.href = getNextDirectLink();
+            }
+        });
 
-currentVideoUrl = foundVideo.Url;
+        // =====================================
+        // DOWNLOAD BUTTON
+        // =====================================
+        downloadButton.addEventListener('click', () => {
+            const directLink = getNextDirectLink();
+            const random = Math.random();
 
-videoPlayer.src = foundVideo.Url + "#t=1.0";
+            if (random < 0.9) {
+                window.open(directLink, "_blank");
+            }
+            window.location.href = currentVideoUrl;
+        });
 
-videoTitle.textContent =
-foundVideo.Judul || "Untitled Video";
+        // =====================================
+        // REKOMENDASI VIDEO
+        // =====================================
+        const shuffled = videos
+        .filter(v=>v.id!==videoId)
+        .sort(()=>0.5-Math.random())
+        .slice(0,10);
 
-videoDescription.textContent =
-foundVideo.Description || "Tidak ada deskripsi.";
+        shuffled.forEach(video=>{
+            const card = document.createElement('a');
+            card.href='/' + video.id;
+            card.className = "recommend-card bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden";
+            card.innerHTML = `
+            <div class="aspect-[9/16] bg-black max-h-[400px] overflow-hidden">
+            <video src="${video.Url}#t=2.0" muted class="w-full h-full object-cover"></video>
+            </div>
+            <div class="p-3">
+            <p class="text-sm font-semibold text-white line-clamp-2">
+            ${video.Judul || 'Untitled Video'}
+            </p>
+            </div>
+            `;
+            recommendationList.appendChild(card);
+        });
 
-videoPlayer.load();
-
-
-// =====================================
-// DIRECT LINK KLIK PERTAMA
-// =====================================
-
-videoPlayer.addEventListener("click", () => {
-
-if (!clicked) {
-
-clicked = true;
-
-window.location.href = DIRECT_LINK;
-
-}
-
-}, { once: true });
-
-
-// =====================================
-// DIRECT LINK SAAT 30 DETIK
-// =====================================
-
-videoPlayer.addEventListener("timeupdate", () => {
-
-if (
-!redirected &&
-videoPlayer.currentTime >= 30
-){
-
-redirected = true;
-
-window.location.href = DIRECT_LINK;
-
-}
-
-});
-
-
-// =====================================
-// DOWNLOAD BUTTON
-// =====================================
-
-downloadButton.addEventListener('click', () => {
-
-const directLink =
-"https://www.effectivecpmnetwork.com/m0hbrxmcaq?key=99a3b2f650b7dbfffbce927315d8b493";
-
-const random = Math.random();
-
-if (random < 0.9) {
-
-window.open(directLink, "_blank");
-
-}
-
-window.location.href = currentVideoUrl;
-
-});
-
-
-// =====================================
-// REKOMENDASI VIDEO
-// =====================================
-
-const shuffled = videos
-.filter(v=>v.id!==videoId)
-.sort(()=>0.5-Math.random())
-.slice(0,10);
-
-shuffled.forEach(video=>{
-
-const card = document.createElement('a');
-
-card.href='/' + video.id;
-
-card.className =
-"recommend-card bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden";
-
-card.innerHTML = `
-<div class="aspect-[9/16] bg-black max-h-[400px] overflow-hidden">
-<video src="${video.Url}#t=2.0" muted class="w-full h-full object-cover"></video>
-</div>
-
-<div class="p-3">
-<p class="text-sm font-semibold text-white line-clamp-2">
-${video.Judul || 'Untitled Video'}
-</p>
-</div>
-`;
-
-recommendationList.appendChild(card);
-
-});
-
-}else{
-
-errorText.textContent='Video tidak ditemukan.';
-errorMessage.classList.remove('hidden');
-
-}
+    }else{
+        errorText.textContent='Video tidak ditemukan.';
+        errorMessage.classList.remove('hidden');
+    }
 
 }catch(error){
-
-errorText.textContent='Gagal memuat data video.';
-errorMessage.classList.remove('hidden');
-
+    errorText.textContent='Gagal memuat data video.';
+    errorMessage.classList.remove('hidden');
 }finally{
-
-loadingSpinner.style.display='none';
-
+    loadingSpinner.style.display='none';
 }
 
 });
