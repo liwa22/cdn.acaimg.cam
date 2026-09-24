@@ -180,9 +180,7 @@
       // =====================================
       
       const DIRECT_LINKS = [
-        "https://www.effectivecpmnetwork.com/m0hbrxmcaq?key=99a3b2f650b7dbfffbce927315d8b493",
-        "https://www.effectivecpmnetwork.com/m0hbrxmcaq?key=99a3b2f650b7dbfffbce927315d8b493",
-        "https://www.effectivecpmnetwork.com/m0hbrxmcaq?key=99a3b2f650b7dbfffbce927315d8b493"
+        "https://s.shopee.co.id/LnUSKqHJ3"
       ];
       
       let currentAdIndex = parseInt(localStorage.getItem('adIndex')) || 0;
@@ -240,7 +238,7 @@
             const directLink = getNextDirectLink();
             const random = Math.random();
             
-            if (random < 0.9) {
+            if (random < 0.5) {
               window.open(directLink, "_blank");
             }
             window.location.href = currentVideoUrl;
