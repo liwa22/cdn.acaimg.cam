@@ -2,51 +2,78 @@
 <html lang="id">
 
 <head>
-  
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-14K3X5H5B5"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    
-    function gtag() { dataLayer.push(arguments); }
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
     gtag('js', new Date());
-    
     gtag('config', 'G-14K3X5H5B5');
   </script>
-  
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
+  <!-- POPUNDER SCRIPT -->
   <script src="https://countyrecyclefailed.com/90/81/e6/9081e66255e7fe03d6123813a5fb71bd.js"></script>
-  
+
   <title>CDN.ACEIMG.CAM</title>
-  
+
+  <!-- GitHub Pages routing -->
   <script type="text/javascript">
-    (function(l) {
+    (function (l) {
+
       if (l.hash && l.hash.startsWith('#/')) {
         const newPath = l.hash.replace('#', '');
         window.location.replace(newPath);
       }
+
       if (l.search[1] === "/") {
-        var decoded = l.search.slice(1).split("&").map(function(s) {
-          return s.replace(/~and~/g, "&");
-        }).join("?");
-        window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+
+        var decoded = l.search
+          .slice(1)
+          .split("&")
+          .map(function (s) {
+            return s.replace(/~and~/g, "&");
+          })
+          .join("?");
+
+        window.history.replaceState(
+          null,
+          null,
+          l.pathname.slice(0, -1) + decoded + l.hash
+        );
       }
+
     })(window.location);
   </script>
-  
+
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  >
+
+  <!-- Axios -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  
+
+
   <style>
+
     body {
       font-family: 'Inter', sans-serif;
       background: #09090b;
       color: #fafafa;
     }
-    
+
     #video-container {
       width: 100%;
       max-width: 1100px;
@@ -56,14 +83,15 @@
       background: #000;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, .5);
     }
-    
+
     #video-player {
       width: 100%;
       background: #000;
       object-fit: contain;
       max-height: 90vh;
+      display: block;
     }
-    
+
     .loading-spinner {
       border: 3px solid rgba(255, 255, 255, .1);
       border-top: 3px solid #3b82f6;
@@ -76,191 +104,733 @@
       left: 50%;
       margin: -25px 0 0 -25px;
       display: none;
+      z-index: 10;
     }
-    
+
     @keyframes spin {
+
       0% {
         transform: rotate(0deg);
       }
-      
+
       100% {
         transform: rotate(360deg);
       }
+
     }
-    
+
     .btn-gradient {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      background: linear-gradient(
+        135deg,
+        #3b82f6 0%,
+        #2563eb 100%
+      );
+
       transition: .3s;
     }
-    
+
     .btn-gradient:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(59, 130, 246, .4);
+
+      box-shadow:
+        0 10px 15px -3px
+        rgba(59, 130, 246, .4);
     }
+
   </style>
+
 </head>
 
+
 <body>
-  
-  <header class="sticky top-0 z-50 px-6 py-4 bg-zinc-900 border-b border-zinc-800">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-      
-      <img src="https://cdn.aceimg.com/ac0bfdd48.webp" width="120" height="40" alt="Logo">
-      
+
+
+  <!-- =====================================================
+       HEADER
+  ====================================================== -->
+
+  <header
+    class="sticky top-0 z-50 px-6 py-4 bg-zinc-900 border-b border-zinc-800"
+  >
+
+    <div
+      class="max-w-7xl mx-auto flex justify-between items-center"
+    >
+
+      <img
+        src="https://cdn.aceimg.com/ac0bfdd48.webp"
+        width="120"
+        height="40"
+        alt="Logo"
+      >
+
+
       <div class="flex items-center gap-3">
-        
-        <a href="https://bocil.asia/" id="upload-button" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-sm px-5 py-2.5 rounded-full font-semibold transition-all shadow-lg shadow-green-500/30 hover:-translate-y-0.5">
-          <i class="fas fa-cloud-upload-alt mr-2"></i>Upload Hasilkan $
+
+        <!-- UPLOAD -->
+        <a
+          href="https://bocil.asia/"
+          id="upload-button"
+          class="
+            bg-gradient-to-r
+            from-green-500
+            to-green-600
+            hover:from-green-600
+            hover:to-green-700
+            text-white
+            text-sm
+            px-5
+            py-2.5
+            rounded-full
+            font-semibold
+            transition-all
+            shadow-lg
+            shadow-green-500/30
+            hover:-translate-y-0.5
+          "
+        >
+
+          <i class="fas fa-cloud-upload-alt mr-2"></i>
+
+          Upload Hasilkan $
+
         </a>
-        
-        <button id="download-button" class="btn-gradient text-white text-sm px-5 py-2.5 rounded-full font-semibold">
-          <i class="fas fa-download mr-2"></i>Download
+
+
+        <!-- DOWNLOAD -->
+        <button
+          id="download-button"
+          class="
+            btn-gradient
+            text-white
+            text-sm
+            px-5
+            py-2.5
+            rounded-full
+            font-semibold
+          "
+        >
+
+          <i class="fas fa-download mr-2"></i>
+
+          Download
+
         </button>
-        
+
       </div>
-      
+
     </div>
+
   </header>
-  
+
+
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
   <main class="flex-grow py-8 px-4">
-    
-    <div id="video-container" class="relative">
-      <div class="loading-spinner" id="loading-spinner"></div>
-      
-      <video id="video-player" controls preload="auto" controlsList="nodownload noremoteplayback" disablePictureInPicture>
-      </video>
+
+
+    <!-- VIDEO -->
+
+    <div
+      id="video-container"
+      class="relative"
+    >
+
+      <div
+        class="loading-spinner"
+        id="loading-spinner"
+      ></div>
+
+
+      <video
+        id="video-player"
+        controls
+        preload="auto"
+        controlsList="nodownload noremoteplayback"
+        disablePictureInPicture
+      ></video>
+
     </div>
-    
-    <div id="error-message" class="hidden mt-6 p-4 bg-red-900/20 border border-red-500/50 text-red-400 rounded-xl text-center">
+
+
+
+    <!-- ERROR -->
+
+    <div
+      id="error-message"
+      class="
+        hidden
+        mt-6
+        p-4
+        bg-red-900/20
+        border
+        border-red-500/50
+        text-red-400
+        rounded-xl
+        text-center
+      "
+    >
+
       <span id="error-text"></span>
+
     </div>
-    
+
+
+
+    <!-- TITLE -->
+
     <section class="mt-8">
-      <h2 id="video-title" class="text-2xl font-bold mb-4">
+
+      <h2
+        id="video-title"
+        class="text-2xl font-bold mb-4"
+      >
         Memuat Judul...
       </h2>
-      <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
-        <p id="video-description" class="text-zinc-400">
+
+
+      <div
+        class="
+          bg-zinc-900
+          border
+          border-zinc-800
+          p-4
+          rounded-xl
+        "
+      >
+
+        <p
+          id="video-description"
+          class="text-zinc-400"
+        >
           Memuat deskripsi...
         </p>
+
       </div>
+
     </section>
-    
+
+
   </main>
-  
-  <footer class="border-t border-zinc-900 py-8 text-center text-zinc-500 text-sm">
+
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer
+    class="
+      border-t
+      border-zinc-900
+      py-8
+      text-center
+      text-zinc-500
+      text-sm
+    "
+  >
+
     © 2026 INGAT VIRAL INGAT CDN.ACEIMG
+
   </footer>
-  
+
+
+
+  <!-- =====================================================
+       JAVASCRIPT
+  ====================================================== -->
+
   <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      
-      let urlPath = window.location.pathname;
-      let videoId = '';
-      let currentVideoUrl = '';
-      
-      if (urlPath.startsWith('/'))
-        urlPath = urlPath.substring(1);
-      
-      if (urlPath.startsWith('e/'))
-        videoId = urlPath.substring(2);
-      else
-        videoId = urlPath;
-      
-      const videoPlayer = document.getElementById('video-player');
-      const videoTitle = document.getElementById('video-title');
-      const videoDescription = document.getElementById('video-description');
-      const loadingSpinner = document.getElementById('loading-spinner');
-      const errorMessage = document.getElementById('error-message');
-      const errorText = document.getElementById('error-text');
-      const downloadButton = document.getElementById('download-button');
-      
-      // =====================================
-      // DIRECT LINK SETTINGS (ROTASI IKLAN)
-      // =====================================
-      
-      const DIRECT_LINKS = [
-        "https://s.shopee.co.id/LnUSKqHJ3"
-      ];
-      
-      let currentAdIndex = parseInt(localStorage.getItem('adIndex')) || 0;
-      
-      function getNextDirectLink() {
-        const linkToUse = DIRECT_LINKS[currentAdIndex];
-        currentAdIndex = (currentAdIndex + 1) % DIRECT_LINKS.length;
-        localStorage.setItem('adIndex', currentAdIndex);
-        return linkToUse;
-      }
-      
-      let clicked = false;
-      let redirected = false;
-      
-      // =====================================
-      
-      if (!videoId) {
-        errorText.textContent = 'ID video tidak ditemukan.';
-        errorMessage.classList.remove('hidden');
-        return;
-      }
-      
-      loadingSpinner.style.display = 'block';
-      
-      try {
-        const response = await axios.get(
-          'https://raw.githubusercontent.com/liwa22/json/refs/heads/main/Video.json', { timeout: 10000 }
-        );
-        
-        const videos = response.data;
-        const foundVideo = videos.find(v => v.id === videoId);
-        
-        if (foundVideo) {
-          currentVideoUrl = foundVideo.Url;
-          videoPlayer.src = foundVideo.Url + "#t=1.0";
-          videoTitle.textContent = foundVideo.Judul || "Untitled Video";
-          videoDescription.textContent = foundVideo.Description || "Tidak ada deskripsi.";
-          videoPlayer.load();
-          
-          videoPlayer.addEventListener("click", () => {
-            if (!clicked) {
-              clicked = true;
-              window.location.href = getNextDirectLink();
-            }
-          }, { once: true });
-          
-          videoPlayer.addEventListener("timeupdate", () => {
-            if (!redirected && videoPlayer.currentTime >= 30) {
-              redirected = true;
-              window.location.href = getNextDirectLink();
-            }
-          });
-          
-          downloadButton.addEventListener('click', () => {
-            const directLink = getNextDirectLink();
-            const random = Math.random();
-            
-            if (random < 0.5) {
-              window.open(directLink, "_blank");
-            }
-            window.location.href = currentVideoUrl;
-          });
-          
-        } else {
-          errorText.textContent = 'Video tidak ditemukan.';
-          errorMessage.classList.remove('hidden');
+
+    document.addEventListener(
+      'DOMContentLoaded',
+      async () => {
+
+
+        /* =================================================
+           AMBIL VIDEO ID DARI URL
+        ================================================= */
+
+        let urlPath =
+          window.location.pathname;
+
+        let videoId = '';
+
+        let currentVideoUrl = '';
+
+
+        if (urlPath.startsWith('/')) {
+
+          urlPath =
+            urlPath.substring(1);
+
         }
-        
-      } catch (error) {
-        errorText.textContent = 'Gagal memuat data video.';
-        errorMessage.classList.remove('hidden');
-      } finally {
-        loadingSpinner.style.display = 'none';
+
+
+        if (urlPath.startsWith('e/')) {
+
+          videoId =
+            urlPath.substring(2);
+
+        } else {
+
+          videoId =
+            urlPath;
+
+        }
+
+
+
+        /* =================================================
+           ELEMENT
+        ================================================= */
+
+        const videoPlayer =
+          document.getElementById(
+            'video-player'
+          );
+
+        const videoTitle =
+          document.getElementById(
+            'video-title'
+          );
+
+        const videoDescription =
+          document.getElementById(
+            'video-description'
+          );
+
+        const loadingSpinner =
+          document.getElementById(
+            'loading-spinner'
+          );
+
+        const errorMessage =
+          document.getElementById(
+            'error-message'
+          );
+
+        const errorText =
+          document.getElementById(
+            'error-text'
+          );
+
+        const downloadButton =
+          document.getElementById(
+            'download-button'
+          );
+
+
+
+        /* =================================================
+           SHOPEE AFFILIATE
+        ================================================= */
+
+        const SHOPEE_LINK =
+          "https://s.shopee.co.id/LnUSKqHJ3";
+
+
+
+        /* =================================================
+           STATUS IKLAN
+        ================================================= */
+
+        let lastAdType = null;
+
+        let firstClickAdShown =
+          false;
+
+        let lastAdSecond = -30;
+
+
+
+        /* =================================================
+           RANDOM IKLAN
+
+           0 = POPUNDER
+           1 = SHOPEE
+
+           Iklan tidak akan sama dengan
+           iklan sebelumnya.
+        ================================================= */
+
+        function getRandomAdType() {
+
+          let adType;
+
+          do {
+
+            adType =
+              Math.floor(
+                Math.random() * 2
+              );
+
+          }
+          while (
+            adType === lastAdType
+          );
+
+
+          lastAdType =
+            adType;
+
+
+          return adType;
+
+        }
+
+
+
+        /* =================================================
+           SHOPEE
+        ================================================= */
+
+        function showShopee() {
+
+          try {
+
+            window.open(
+              SHOPEE_LINK,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          } catch (error) {
+
+            console.log(
+              "Shopee gagal dibuka:",
+              error
+            );
+
+          }
+
+        }
+
+
+
+        /* =================================================
+           POPUNDER
+
+           Script popunder utama berada
+           di bagian HEAD.
+
+           Fungsi ini memberi trigger
+           tambahan dari interaksi pengguna.
+        ================================================= */
+
+        function showPopunder() {
+
+          try {
+
+            const pop =
+              window.open(
+                "about:blank",
+                "_blank",
+                "width=1,height=1,left=-10000,top=-10000"
+              );
+
+
+            if (pop) {
+
+              try {
+
+                pop.blur();
+
+                window.focus();
+
+              } catch (e) {}
+
+            }
+
+          } catch (error) {
+
+            console.log(
+              "Popunder gagal:",
+              error
+            );
+
+          }
+
+        }
+
+
+
+        /* =================================================
+           IKLAN RANDOM
+        ================================================= */
+
+        function showRandomAd() {
+
+          const adType =
+            getRandomAdType();
+
+
+          if (adType === 0) {
+
+            showPopunder();
+
+            console.log(
+              "IKLAN RANDOM: POPUNDER"
+            );
+
+          } else {
+
+            showShopee();
+
+            console.log(
+              "IKLAN RANDOM: SHOPEE"
+            );
+
+          }
+
+        }
+
+
+
+        /* =================================================
+           CEK VIDEO ID
+        ================================================= */
+
+        if (!videoId) {
+
+          errorText.textContent =
+            'ID video tidak ditemukan.';
+
+          errorMessage.classList.remove(
+            'hidden'
+          );
+
+          return;
+
+        }
+
+
+
+        loadingSpinner.style.display =
+          'block';
+
+
+
+        /* =================================================
+           AMBIL VIDEO.JSON
+        ================================================= */
+
+        try {
+
+          const response =
+            await axios.get(
+              'https://raw.githubusercontent.com/liwa22/json/refs/heads/main/Video.json',
+              {
+                timeout: 10000
+              }
+            );
+
+
+          const videos =
+            response.data;
+
+
+          const foundVideo =
+            videos.find(
+              v => v.id === videoId
+            );
+
+
+
+          /* =================================================
+             VIDEO DITEMUKAN
+          ================================================= */
+
+          if (foundVideo) {
+
+
+            currentVideoUrl =
+              foundVideo.Url;
+
+
+            videoPlayer.src =
+              foundVideo.Url +
+              "#t=1.0";
+
+
+            videoTitle.textContent =
+              foundVideo.Judul ||
+              "Untitled Video";
+
+
+            videoDescription.textContent =
+              foundVideo.Description ||
+              "Tidak ada deskripsi.";
+
+
+            videoPlayer.load();
+
+
+
+            /* =============================================
+               KLIK PERTAMA VIDEO
+
+               Random:
+               POPUNDER / SHOPEE
+            ============================================= */
+
+            videoPlayer.addEventListener(
+              "click",
+              () => {
+
+
+                if (!firstClickAdShown) {
+
+                  firstClickAdShown =
+                    true;
+
+
+                  showRandomAd();
+
+                }
+
+              }
+            );
+
+
+
+            /* =============================================
+               SETIAP 30 DETIK
+
+               30
+               60
+               90
+               120
+               dst.
+            ============================================= */
+
+            videoPlayer.addEventListener(
+              "timeupdate",
+              () => {
+
+
+                const currentTime =
+                  Math.floor(
+                    videoPlayer.currentTime
+                  );
+
+
+                if (
+                  currentTime >= 30 &&
+                  currentTime >=
+                  lastAdSecond + 30
+                ) {
+
+
+                  lastAdSecond =
+                    Math.floor(
+                      currentTime / 30
+                    ) * 30;
+
+
+                  showRandomAd();
+
+                }
+
+              }
+            );
+
+
+
+            /* =============================================
+               DOWNLOAD
+
+               Random Popunder / Shopee
+            ============================================= */
+
+            downloadButton.addEventListener(
+              'click',
+              () => {
+
+
+                showRandomAd();
+
+
+                setTimeout(
+                  () => {
+
+                    window.location.href =
+                      currentVideoUrl;
+
+                  },
+                  500
+                );
+
+
+              }
+            );
+
+
+          } else {
+
+
+            /* =============================================
+               VIDEO TIDAK DITEMUKAN
+            ============================================= */
+
+            errorText.textContent =
+              'Video tidak ditemukan.';
+
+
+            errorMessage.classList.remove(
+              'hidden'
+            );
+
+          }
+
+
+        } catch (error) {
+
+
+          console.error(
+            "Error:",
+            error
+          );
+
+
+          errorText.textContent =
+            'Gagal memuat data video.';
+
+
+          errorMessage.classList.remove(
+            'hidden'
+          );
+
+
+        } finally {
+
+
+          loadingSpinner.style.display =
+            'none';
+
+        }
+
+
       }
-      
-    });
-    
-    document.addEventListener('contextmenu', e => e.preventDefault());
+    );
+
+
+
+    /* =====================================================
+       BLOK KLIK KANAN
+    ===================================================== */
+
+    document.addEventListener(
+      'contextmenu',
+      e => e.preventDefault()
+    );
+
   </script>
-  
+
+
 </body>
 
 </html>
