@@ -422,93 +422,11 @@
           document.getElementById(
             'download-button'
           );
-
-
-
-        /* =================================================
-           SHOPEE AFFILIATE
-        ================================================= */
-
-        const SHOPEE_LINK =
-          "https://s.shopee.co.id/LnUSKqHJ3";
-
-
-
         /* =================================================
            STATUS IKLAN
         ================================================= */
-
-        let lastAdType = null;
-
-        let firstClickAdShown =
-          false;
-
+        let firstClickAdShown = false;
         let lastAdSecond = -30;
-
-
-
-        /* =================================================
-           RANDOM IKLAN
-
-           0 = POPUNDER
-           1 = SHOPEE
-
-           Iklan tidak akan sama dengan
-           iklan sebelumnya.
-        ================================================= */
-
-        function getRandomAdType() {
-
-          let adType;
-
-          do {
-
-            adType =
-              Math.floor(
-                Math.random() * 2
-              );
-
-          }
-          while (
-            adType === lastAdType
-          );
-
-
-          lastAdType =
-            adType;
-
-
-          return adType;
-
-        }
-
-
-
-        /* =================================================
-           SHOPEE
-        ================================================= */
-
-        function showShopee() {
-
-          try {
-
-            window.open(
-              SHOPEE_LINK,
-              "_blank",
-              "noopener,noreferrer"
-            );
-
-          } catch (error) {
-
-            console.log(
-              "Shopee gagal dibuka:",
-              error
-            );
-
-          }
-
-        }
-
 
 
         /* =================================================
@@ -559,33 +477,10 @@
 
 
         /* =================================================
-           IKLAN RANDOM
-        ================================================= */
-
+            IKLAN POPUNDER SAJA (TANPA SHOPEE AFFILIATE)
+         ================================================= */
         function showRandomAd() {
-
-          const adType =
-            getRandomAdType();
-
-
-          if (adType === 0) {
-
-            showPopunder();
-
-            console.log(
-              "IKLAN RANDOM: POPUNDER"
-            );
-
-          } else {
-
-            showShopee();
-
-            console.log(
-              "IKLAN RANDOM: SHOPEE"
-            );
-
-          }
-
+          showPopunder();
         }
 
 
@@ -674,7 +569,7 @@
                KLIK PERTAMA VIDEO
 
                Random:
-               POPUNDER / SHOPEE
+               POPUNDER SAJA
             ============================================= */
 
             videoPlayer.addEventListener(
@@ -743,7 +638,7 @@
             /* =============================================
                DOWNLOAD
 
-               Random Popunder / Shopee
+               Popunder saja
             ============================================= */
 
             downloadButton.addEventListener(
