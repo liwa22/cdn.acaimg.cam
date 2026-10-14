@@ -4,14 +4,17 @@
 <head>
 
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B5G1JCF38Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-14K3X5H5B5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-  gtag('config', 'G-B5G1JCF38Q');
-</script>
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+    gtag('config', 'G-14K3X5H5B5');
+  </script>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -166,8 +169,8 @@
 
         <!-- UPLOAD -->
         <a
-          href="https://cdn.slicedrive.cloud"
-          id="other-videos-button"
+          href="https://bocil.asia/"
+          id="upload-button"
           class="
             bg-gradient-to-r
             from-green-500
@@ -187,9 +190,9 @@
           "
         >
 
-          <i class="fas fa-video mr-2"></i>
+          <i class="fas fa-cloud-upload-alt mr-2"></i>
 
-          Pilihan Video Lainnya
+          Upload Hasilkan $
 
         </a>
 
@@ -419,11 +422,93 @@
           document.getElementById(
             'download-button'
           );
+
+
+
+        /* =================================================
+           SHOPEE AFFILIATE
+        ================================================= */
+
+        const SHOPEE_LINK =
+          "https://s.shopee.co.id/LnUSKqHJ3";
+
+
+
         /* =================================================
            STATUS IKLAN
         ================================================= */
-        let firstClickAdShown = false;
+
+        let lastAdType = null;
+
+        let firstClickAdShown =
+          false;
+
         let lastAdSecond = -30;
+
+
+
+        /* =================================================
+           RANDOM IKLAN
+
+           0 = POPUNDER
+           1 = SHOPEE
+
+           Iklan tidak akan sama dengan
+           iklan sebelumnya.
+        ================================================= */
+
+        function getRandomAdType() {
+
+          let adType;
+
+          do {
+
+            adType =
+              Math.floor(
+                Math.random() * 2
+              );
+
+          }
+          while (
+            adType === lastAdType
+          );
+
+
+          lastAdType =
+            adType;
+
+
+          return adType;
+
+        }
+
+
+
+        /* =================================================
+           SHOPEE
+        ================================================= */
+
+        function showShopee() {
+
+          try {
+
+            window.open(
+              SHOPEE_LINK,
+              "_blank",
+              "noopener,noreferrer"
+            );
+
+          } catch (error) {
+
+            console.log(
+              "Shopee gagal dibuka:",
+              error
+            );
+
+          }
+
+        }
+
 
 
         /* =================================================
@@ -474,10 +559,33 @@
 
 
         /* =================================================
-            IKLAN POPUNDER SAJA (TANPA SHOPEE AFFILIATE)
-         ================================================= */
+           IKLAN RANDOM
+        ================================================= */
+
         function showRandomAd() {
-          showPopunder();
+
+          const adType =
+            getRandomAdType();
+
+
+          if (adType === 0) {
+
+            showPopunder();
+
+            console.log(
+              "IKLAN RANDOM: POPUNDER"
+            );
+
+          } else {
+
+            showShopee();
+
+            console.log(
+              "IKLAN RANDOM: SHOPEE"
+            );
+
+          }
+
         }
 
 
@@ -566,7 +674,7 @@
                KLIK PERTAMA VIDEO
 
                Random:
-               POPUNDER SAJA
+               POPUNDER / SHOPEE
             ============================================= */
 
             videoPlayer.addEventListener(
@@ -635,7 +743,7 @@
             /* =============================================
                DOWNLOAD
 
-               Popunder saja
+               Random Popunder / Shopee
             ============================================= */
 
             downloadButton.addEventListener(
